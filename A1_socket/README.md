@@ -223,10 +223,14 @@ submission_zip/
 ```
 
 ### Report requirements
-Your report should be short and include:
+Your report should include:
 - Student information: full name, student ID, and email.
-- How you ran/testing steps: if you used commands different from our test script,
-  list the exact commands you ran and the environment (OS/version if relevant).
+- Design summary: describe how you implemented the required features (socket setup,
+  connect/accept loop, chunked read/write, partial send/write handling, EINTR handling).
+- Testing: list the tests you ran and summarize the results.
+- Include a screenshot of test output showing the results.
+- If you used commands different from our test script, list the exact commands and
+  the environment (OS/version if relevant).
 
 ## Tips
 - Read/write in loops; network calls can be partial.
