@@ -1,4 +1,4 @@
-# Socket Programming Assignment (Student Version)
+# Socket Programming Assignment
 
 ## Overview
 You are writing a TCP client/server pair in C. Sockets are the standard interface for
@@ -18,9 +18,11 @@ loop back inside your machine instead of going out over a physical network.
 
 Think of it like this (single machine):
 
-  Client process                             OS TCP/IP stack                         Server process
-  --------------                             -----------------                       --------------
-  ./client 127.0.0.1:12345  ->  [src=127.0.0.1:random_ephemeral -> dst=127.0.0.1:12345]  ->  ./server :12345
+```text
+Client process                             OS TCP/IP stack                         Server process
+--------------                             -----------------                       --------------
+./client 127.0.0.1:12345  ->  [src=127.0.0.1:random_ephemeral -> dst=127.0.0.1:12345]  ->  ./server :12345
+```
 
 Even on one machine, the client uses its own ephemeral source port, the server listens on
 its own port, and the OS routes the bytes through the full TCP/IP stack.
@@ -40,14 +42,18 @@ You will use the terminal to run programs. Two important concepts:
    - This is the input data your program reads.
    - By default, stdin comes from the keyboard.
    - When we use a pipe like:
-       printf "Hello\n" | ./client 127.0.0.1 12345
+```text
+printf "Hello\n" | ./client 127.0.0.1 12345
+```
      the output of printf becomes the stdin of ./client.
 
 2) stdout (standard output)
    - This is the output your program writes.
    - By default, stdout is shown on the screen.
    - stdout can be redirected to a file, for example:
-       ./server 12345 > server_output.txt
+```text
+./server 12345 > server_output.txt
+```
    - Our server writes received bytes to stdout, so you can see what arrived or
      redirect it to a file for comparison.
 
@@ -85,7 +91,9 @@ networking logic.
 - Because write() can write fewer bytes than requested, you must loop until all
   bytes from the received chunk are written.
 - If you want to save server output to a file, redirect stdout:
-  - ./server 12345 > server_output.txt
+```text
+./server 12345 > server_output.txt
+```
 
 ### Client sending rules
 - Read from standard input using read() (stdin is your keyboard or a pipe).
@@ -97,15 +105,21 @@ networking logic.
 - Like write(), send()/write() can send fewer bytes than requested, so you must
   loop until the entire chunk is transmitted.
 - If you want to feed a file as input, you can redirect or use cat:
-  - ./client 127.0.0.1 12345 < input.txt
-  - cat input.txt | ./client 127.0.0.1 12345
+```text
+./client 127.0.0.1 12345 < input.txt
+cat input.txt | ./client 127.0.0.1 12345
+```
 
 ## How to build (step-by-step)
 1) Open a terminal.
 2) Change into the student directory:
-     cd student
+```text
+cd student
+```
 3) Build both programs:
-     make
+```text
+make
+```
 
 You should now have two executables:
   ./client
@@ -113,14 +127,20 @@ You should now have two executables:
 
 ## How to test (manual)
 1) Open Terminal A and start the server:
-     ./server 12345
+```text
+./server 12345
+```
    Keep this terminal open; the server keeps running.
 
 2) Open Terminal B and send a message with the client:
-     printf "Hello\n" | ./client 127.0.0.1 12345
+```text
+printf "Hello\n" | ./client 127.0.0.1 12345
+```
 
 3) Look at Terminal A. You should see:
-     Hello
+```text
+Hello
+```
 
 Notes:
 - 127.0.0.1 means "this same machine."
@@ -136,7 +156,9 @@ server's stdout, and compares it to the expected bytes.
 
 ### How to run the tests
 From the student directory:
-  ./test_client_server.sh 12345
+```text
+./test_client_server.sh 12345
+```
 
 If the port is already in use, choose another port (10000-60000).
 
@@ -189,6 +211,7 @@ Submit a single zip that contains:
 2) A separate report file placed outside the program folder.
 
 Directory layout example:
+```text
 submission_zip/
   student/                    (this folder, all source files inside)
     client.c
@@ -197,6 +220,7 @@ submission_zip/
     test_client_server.sh
     README.md
   REPORT.pdf                  (report is outside the program folder)
+```
 
 ### Report requirements
 Your report should be short and include:
