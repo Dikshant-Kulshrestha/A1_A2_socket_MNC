@@ -72,7 +72,7 @@ int main(int argc, char *argv[]) {
 
     while ((nread = read(STDIN_FILENO, buf, sizeof(buf))) != 0) {
         if (nread < 0) {
-            if (errno == EINTR) continue; // interrupted, retry
+            if (errno == EINTR) continue; // retry
             perror("read");
             break;
         }

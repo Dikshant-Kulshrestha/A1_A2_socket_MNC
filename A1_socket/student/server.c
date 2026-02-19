@@ -82,7 +82,7 @@ int main(int argc, char *argv[]) {
         int client_fd;
 
         while ((client_fd = accept(listen_fd, (struct sockaddr *)&client_addr, &addrlen)) < 0) {
-            if (errno == EINTR) continue; // interrupted, retry
+            if (errno == EINTR) continue; // retry
             perror("accept");
             close(listen_fd);
             return 1;
